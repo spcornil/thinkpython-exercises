@@ -1,7 +1,15 @@
+################
+# Exercise 5-1 #
+################
+# Write a script that reads the current epoch time and converts it to a time of day in hours, minutes,
+# and seconds, plus the number of days since the epoch.
+
 import math
 import time
 
 ct = time.time()
+
+# Test var for consistency
 #ct = 1676845576.841751
 
 def gmt_time(ct):
