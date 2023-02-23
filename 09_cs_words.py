@@ -40,3 +40,81 @@ def no_e_list(words):
     #print(count_no_e)
     return str(round(count_no_e / (count_e + count_no_e) * 100, 2)) + '%'
 print(no_e_list(fin))
+
+################
+# Exercise 9-3 #
+################
+# Write a function named avoids that takes a word and a string of forbidden letters, and that
+# returns True if the word doesn’t use any of the forbidden letters.
+
+#word = input('What is the word you would like to check?\n')
+#forb = input('What is the forbidden string?\n')
+
+def avoids(word, forb):
+    if forb in word:
+        print('False')
+    else:
+        print('True')
+#avoids(word, forb)
+
+# Modify your program to prompt the user to enter a string of forbidden letters and then
+# print the number of words that don’t contain any of them.
+
+fin = open('words.txt')
+#forb = input('What is the forbidden string?\n')
+
+def avoids(forb):
+    for word in fin:
+        if forb not in word:
+           print(word)
+#avoids(forb)
+
+################
+# Exercise 9-4 #
+################
+# Write a function named uses_only that takes a word and a string of letters, and that
+# returns True if the word contains only letters in the list.
+fin = open('words.txt')
+forb = 'acefhlo'
+
+def uses_only(forb):
+    for line in fin:
+        word = line.strip()
+        if all(x in forb for x in word):
+            print(word)
+#uses_only(forb)
+
+################
+# Exercise 9-5 #
+################
+# Write a function named uses_all that takes a word and a string of required letters, and
+# that returns True if the word uses all the required letters at least once.
+fin = open('words.txt')
+
+def uses_all(forb):
+    count = 0
+    for line in fin:
+        word = line.strip()
+        if all(x in word for x in forb): ### <-- Swap forb/word from previous statement.
+            count += 1
+    return count
+print(uses_all('aeiou'))
+print(uses_all('aeiouy'))
+
+################
+# Exercise 9-6 #
+################
+# Write a function called is_abecedarian that returns True if the letters in a word appear in
+# alphabetical order (double letters are okay).
+fin = open('words.txt')
+
+def is_abecedarian(fin):
+    count = 0
+    for line in fin:
+        word = line.strip()
+        word_sorted = ''.join(sorted(word))
+        if word == word_sorted:
+            print(word)
+is_abecedarian(fin)
+
+
