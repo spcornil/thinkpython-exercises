@@ -116,5 +116,3 @@ def is_abecedarian(fin):
         if word == word_sorted:
             print(word)
 is_abecedarian(fin)
-
-
