@@ -5,7 +5,7 @@
 # punctuation from the words, and converts them to lowercase.
 import string
 
-fin = open('../words.txt')
+fin = open('words.txt')
 
 def clean_file(words):
     punc = string.punctuation
@@ -49,7 +49,7 @@ def process_book(book):
             parsing = True
     #return b
 
-print(process_book(rj))
+#print(process_book(rj))
 
 # Then modify the program to count the total number of words in the book, and the number
 # of times each word is used.
@@ -87,12 +87,49 @@ def most_frequent(book):
         desc.append((freq, x))
     desc.sort(reverse=True)
     return desc[:20]
-print(most_frequent(rj))
+#print(most_frequent(rj))
 
 #################
-# Exercise 13-3 #
+# Exercise 13-4 #
 #################
 # Modify the previous program to read a word list (see “Reading Word Lists”) and then
 # print all the words in the book that are not in the word list.
 
+import re
+
+rj = open('romeo_and_juliet.txt')
 fin = open('words.txt')
+
+
+START = '*** START'
+END = '*** END'
+    
+def process_book(book):
+    parsing = False
+    b = []
+    #d = dict()
+    for line in book:
+        if line.startswith(END):
+            parsing = False
+        if parsing:
+            for word in line.split():
+                word = word.strip().lower()
+                word = re.sub('[^a-zA-Z]', '', word)    # Lots of weird characters so use regex instead of string punctuation
+                b.append(word)
+        if line.startswith(START):
+            parsing = True
+    return list(set(b))
+#print(process_book(rj))
+
+def compare_lists(book, word_list):
+    wl = []
+    bl = process_book(book)
+    book_not_word = []
+    for word in word_list:
+        word = word.strip().split()
+        wl.append(word)
+    for bword in bl:
+        if bword not in wl:
+            book_not_word.append(bword)
+    return book_not_word
+print(compare_lists(rj, fin))  
